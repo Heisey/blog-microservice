@@ -1,0 +1,13 @@
+{
+  "name": "posts",
+  "version": "1.0.0",
+  "description": "A posts micorservice",
+  "main": "index.js",
+  "author": "Heisey",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
