@@ -11,3 +11,17 @@ export const getAllPosts = () => {
     })
   }
 }
+
+export const createPost = (title) => {
+
+  return async dispatch => {
+    const response = await axios.post('http://localhost:3500/posts', {
+      title
+    })
+
+    dispatch({
+      type: 'CREATE_POST',
+      payload: response.data.records
+    })
+  }
+}
