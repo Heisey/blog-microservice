@@ -13,6 +13,7 @@ export const getAllPosts = () => {
 }
 
 export const createPost = (title) => {
+  console.log('puppies create')
 
   return async dispatch => {
     const response = await axios.post('http://localhost:3500/posts', {

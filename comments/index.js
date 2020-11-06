@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.get('/posts/:id/comments', (req, res) => {
+  console.log('puppies')
   const postId = req.params.id
 
   if (!comments[postId]) {

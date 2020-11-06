@@ -21,8 +21,9 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/posts', (req, res) => {
+  // console.log('puppies')
   const id = uuid()
-  console.log(req.body)
+  // console.log(req.body)
 
   const { title } = req.body
 

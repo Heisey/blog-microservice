@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import postsHandler from './posts'
+import postsReducer from './posts'
+import commentReducer from './comments'
 
 export default combineReducers({
-  postsData: postsHandler
+  commentData: commentReducer,
+  postsData: postsReducer
 })

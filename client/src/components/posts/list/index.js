@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { actions } from '../../../store'
+import { comments } from '../../'
 
 const List = (props) => {
 
@@ -28,6 +29,13 @@ const List = (props) => {
         >
           <div className='card-body'>
             <h3>{posts[key].title}</h3>
+            <h5>Comments</h5>
+            <comments.List 
+              postId={key}
+            />
+            <comments.Create
+              postId={key}
+            />
           </div>
         </div>
       ))
@@ -43,6 +51,7 @@ const List = (props) => {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   if (!state.postsData) {
     return {}
   }
