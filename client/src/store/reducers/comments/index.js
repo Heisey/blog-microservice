@@ -5,8 +5,6 @@ const commentReducer = (state = null, action) => {
         return { ...state }
       }
       const keys = Object.keys(action.payload)
-      console.log(action.payload)
-      console.log(keys)
       const postIdKey = keys[0]
       return { ...state, [postIdKey]: action.payload[postIdKey] }
 

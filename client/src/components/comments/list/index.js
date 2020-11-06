@@ -14,11 +14,19 @@ const List = (props) => {
     getComments(postId)
   }, [getComments, postId])
 
-  // console.log('puppies', comments)
+  const renderComments = () => {
+    if (!comments[postId]) {
+      return (
+        <h1>No comments</h1>
+      )
+    } else {
+      return comments[postId].map(comment => (<span key={comment.id}>{comment.text}</span>))
+    }
+  }
 
   return (
     <div>
-      Puppy comment list
+      {renderComments()}
     </div>
   )
 }
