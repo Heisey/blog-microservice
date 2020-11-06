@@ -5,6 +5,7 @@ import { comments } from '../../'
 
 const List = (props) => {
 
+  // ~~ Redux props
   const { 
     getAllPosts,
     posts
@@ -51,11 +52,10 @@ const List = (props) => {
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   if (!state.postsData) {
-    return {}
+    return { ...state, posts: {} }
   }
-
+  
   return {
     posts: state.postsData.posts
   }

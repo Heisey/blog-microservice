@@ -1,7 +1,6 @@
 const express = require('express')
 const chalk = require('chalk')
 const { v4: uuid } = require('uuid')
-const core = require('cors')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 

@@ -8,11 +8,13 @@ const List = (props) => {
   const { postId } = props
 
   // ~~ Redux props
-  const { getComments } = props
+  const { comments, getComments } = props
 
   useEffect(() => {
     getComments(postId)
   }, [getComments, postId])
+
+  // console.log('puppies', comments)
 
   return (
     <div>
@@ -21,6 +23,18 @@ const List = (props) => {
   )
 }
 
-export default connect(null, {
+const mapStateToProps = state => {
+  
+  if (!state.commentData) {
+    return { ...state, comments: {} }
+  }
+
+  return {
+    ...state,
+    comments: state.commentData
+  }
+}
+
+export default connect(mapStateToProps, {
   getComments: actions.getCommentsByPostId
 })(List)
