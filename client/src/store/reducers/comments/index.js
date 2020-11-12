@@ -14,16 +14,17 @@ const commentReducer = (state = null, action) => {
       const comment = {
         comments: [{ id, text }]
       }
-      console.log(state)
-      if (!state && !state[postId]) {
+      
+      if (state === null) {
+        console.log('first comment create')
         return { ...state, postId: comment}
       } else {
+        console.log('add to comments')
         const records = state[postId]
         records.push({id, text})
         return {...state, [postId]: records[postId] }
       }
       
-
     default: 
       return state
   }

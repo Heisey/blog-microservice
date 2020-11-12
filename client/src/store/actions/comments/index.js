@@ -21,7 +21,7 @@ export const createComment = (postId, text) => {
     })
 
     const records = {...response.data.records, postId}
-
+    
     dispatch({
       type: 'CREATE_COMMENT_FOR_POST',
       payload: records
