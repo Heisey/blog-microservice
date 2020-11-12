@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const chalk = require('chalk')
 const { v4: uuid } = require('uuid')
+const axios = require('axios')
 
 const Posts = {}
 
@@ -20,10 +21,8 @@ app.get('/posts', (req, res) => {
   })
 })
 
-app.post('/posts', (req, res) => {
-  // console.log('puppies')
+app.post('/posts', async (req, res) => {
   const id = uuid()
-  // console.log(req.body)
 
   const { title } = req.body
 
@@ -34,12 +33,23 @@ app.post('/posts', (req, res) => {
 
   Posts[id] = post
 
+  await axios.post('http://localhost:4500/events', {
+    type: 'POST_CREATED',
+    payload: post
+  })
+
   res.status(201).json({
     "status": "success",
     "records": post
   })
 })
 
+app.post('/events', (req, res) => {
+  res.status(201).json({
+    status: 'success'
+  })
+})
+
 app.listen(PORT, () => {
-  console.log(chalk.bold.blue.inverse(`Post micorservice is running on ${PORT}`))
+  console.log(chalk.bold.blue.inverse(`Post micorservice is running on port ${PORT}`))
 })

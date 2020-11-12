@@ -3,6 +3,7 @@ const chalk = require('chalk')
 const { v4: uuid } = require('uuid')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const axios = require('axios')
 
 const comments = {}
 
@@ -14,7 +15,6 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.get('/posts/:id/comments', (req, res) => {
-  console.log('puppies')
   const postId = req.params.id
 
   if (!comments[postId]) {
@@ -29,8 +29,7 @@ app.get('/posts/:id/comments', (req, res) => {
   })
 })
 
-app.post('/posts/:id/comments', (req, res) => {
-  console.log('puppies')
+app.post('/posts/:id/comments', async (req, res) => {
   const postId = req.params.id
   const id = uuid()
   const { text } = req.body
@@ -46,12 +45,26 @@ app.post('/posts/:id/comments', (req, res) => {
     comments[postId].push(comment)
   }
 
+  await axios.post('http://localhost:4500/events', {
+    type: 'COMMENT_CREATED',
+    payload: {
+      ...comment,
+      postId
+    }
+  })
+
   res.status(201).json({
     "status": "success",
     "records": comment
   })
 })
 
+app.post('/events', (req, res) => {
+  res.status(201).json({
+    status: 'success'
+  })
+})
+
 app.listen(PORT, () => {
-  console.log(chalk.blue.bold.inverse(`Comments microservice is running on port ${PORT}`))
+  console.log(chalk.magenta.bold.inverse(`Comments microservice is running on port ${PORT}`))
 })
