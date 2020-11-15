@@ -32,7 +32,7 @@ const List = (props) => {
             <h3>{posts[key].title}</h3>
             <h5>Comments</h5>
             <comments.List 
-              postId={key}
+              comments={posts[key].comments}
             />
             <comments.Create
               postId={key}

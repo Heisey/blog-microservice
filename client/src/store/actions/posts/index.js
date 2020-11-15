@@ -3,7 +3,7 @@ import axios from 'axios'
 export const getAllPosts = () => {
 
   return async dispatch => {
-    const response = await axios.get('http://localhost:3500/posts')
+    const response = await axios.get('http://localhost:5000/posts')
 
     dispatch({
       type: 'GET_ALL_POSTS',
@@ -13,7 +13,6 @@ export const getAllPosts = () => {
 }
 
 export const createPost = (title) => {
-  console.log('puppies create')
 
   return async dispatch => {
     const response = await axios.post('http://localhost:3500/posts', {
