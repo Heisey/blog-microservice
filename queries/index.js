@@ -21,6 +21,7 @@ app.get('/posts', (req, res) => {
 app.post('/events', (req, res) => {
 
   const {type, payload} = req.body
+  console.log(type)
 
   switch(type) {
     case 'POST_CREATED':
@@ -37,9 +38,16 @@ app.post('/events', (req, res) => {
     case 'COMMENT_CREATED':
       const comment = {
         id: payload.id,
-        text: payload.text
+        text: payload.text,
+        status: payload.status
       }
       postsData[payload.postId].comments.push(comment)
+      return res.status(200).json({
+        status: 'success'
+      })
+
+    case 'COMMENT_UPDATED':
+      console.log(payload)
       return res.status(200).json({
         status: 'success'
       })

@@ -5,6 +5,14 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const axios = require('axios')
 
+const updateComment = (updatedComment, field) => {
+  console.log(comments)
+  const comment = comments[updatedComment.postId].filter(el => el.id === updatedComment.id)
+  comment[field] = updatedComment[field]
+  comments[updatedComment.postId] = comment
+  console.log(comments)
+}
+
 const comments = {}
 
 const app = express()
@@ -30,13 +38,23 @@ app.get('/posts/:id/comments', (req, res) => {
 })
 
 app.post('/posts/:id/comments', async (req, res) => {
+
+  if (req.body.status === 'COMMENT_MODERATED') {
+    updateComment(req.body.payload, 'status')
+
+    return axios.post('http://localhost:4500/events', {
+      type: 'COMMENT_UPDATED',
+      payload: req.body.payload
+    })
+  }
   const postId = req.params.id
   const id = uuid()
   const { text } = req.body
 
   const comment = {
     id,
-    text
+    text,
+    status: 'pending'
   }
 
   if (!comments[postId]) {
