@@ -5,10 +5,13 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const axios = require('axios')
 
+// !! This function needs to be fixed, fucking data
 const updateComment = (updatedComment, field) => {
   const comment = comments[updatedComment.postId].filter(el => el.id === updatedComment.id)[0]
   comment[field] = updatedComment[field]
-  comments[updatedComment.postId] = comment
+  const commentIDS = comments[updatedComment.postId].map(el => el.id)
+  const commentIndex = commentIDS.indexOf(updatedComment.id)
+  comments[updatedComment.postId][commentIndex] = comment
 }
 
 const comments = {}
@@ -50,6 +53,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   if (!comments[postId]) {
     comments[postId] = [comment]
   } else {
+    console.log(comments)
     comments[postId].push(comment)
   }
 

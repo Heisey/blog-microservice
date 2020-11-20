@@ -47,7 +47,13 @@ app.post('/events', (req, res) => {
       })
 
     case 'COMMENT_UPDATED':
-      console.log(payload)
+      const postToBeUpdated = postsData[payload.postId]
+      const commentsIDS = postToBeUpdated.comments.map( el => el.id)
+      const commentIndex = commentsIDS.indexOf(payload.id)
+      console.log(commentIndex)
+      postToBeUpdated.comments[commentIndex] = payload
+      postsData[payload.postId] = postToBeUpdated
+      console.log(postsData)
       return res.status(200).json({
         status: 'success'
       })
